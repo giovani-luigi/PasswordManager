@@ -5,20 +5,20 @@ import myid.model.*;
 
 public interface IStoreProfiles {
     
-    public void add(Profile profile) throws Exception;
+    public void add(Profile profile) throws DatabaseException;
     
-    public void remove(Profile profile) throws Exception;
+    public void remove(Profile profile) throws DatabaseException;
     
-    public Profile read(int primaryKey) throws Exception;
+    public Profile read(int primaryKey) throws DatabaseException;
     
-    public void update(Profile profile) throws Exception;
+    public void update(Profile profile) throws DatabaseException;
     
-    public List<Profile> readAll() throws Exception;
+    public List<Profile> readAll() throws DatabaseException;
     
-    public String getPasswordHash() throws Exception;
+    public String getPasswordHash() throws DatabaseException;
     
-    public void setPasswordHash(String password) throws Exception;
+    public void setPasswordHash(String password) throws DatabaseException;
     
-    public boolean hasPassword() throws Exception;
+    public boolean hasPassword() throws DatabaseException;
     
 }

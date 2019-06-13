@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import myid.cryptography.Cypher;
 import myid.model.BadValueException;
+import myid.model.DatabaseException;
 import myid.model.Profile;
 import myid.view.MainView;
 
@@ -21,6 +22,7 @@ public final class SQLiteStorage implements IStoreProfiles {
 
     // DB objects
     private static final String TABLE_PROFILES = "Profiles";
+    private static final String TABLE_SETTINGS = "Settings";
     private final String connectionString;
     private boolean initialized;
     
@@ -56,24 +58,34 @@ public final class SQLiteStorage implements IStoreProfiles {
      * Creates database file and tables
      * @throws SQLException 
      */
-    private void initialize() throws SQLException {
-        String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_PROFILES + 
+    private void initialize() throws DatabaseException {
+        //Table to store all profiles (login+password pairs)
+        String sqlTabProfiles = "CREATE TABLE IF NOT EXISTS " + TABLE_PROFILES + 
                          "(Id integer PRIMARY KEY," +   // primary key
                          "alias TEXT," +   // alias (e.g. 'hotmail')
                          "pwd TEXT," +     // crypted password
-                         "user TEXT," +    // crypted user name
+                         "user TEXT," +    // user name
                          "url TEXT)";      // url to the service when applicable
+        
+        //Table to store all settings (the master password hash)
+        String sqlTabSettings = "CREATE TABLE IF NOT EXISTS " + TABLE_SETTINGS + 
+                         "(name TEXT, value TEXT)";
         try(Connection c = DriverManager.getConnection(connectionString)){
             Statement s = c.createStatement();
-            s.execute(sql);
+            s.execute(sqlTabProfiles);
+            s.execute(sqlTabSettings);
             initialized = true;
+        } catch (SQLException ex) {
+            initialized = false;
+            throw new DatabaseException("Erro ao inicializar um novo banco de dados", ex);
         }
     }
     
     @Override
-    public void add(Profile profile) throws SQLException {
+    public void add(Profile profile) throws DatabaseException {
         if (!initialized) initialize();
-        String sql = "INSERT INTO " + TABLE_PROFILES + " (alias,pwd,user,url) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO " + TABLE_PROFILES + 
+                " (alias,pwd,user,url) VALUES (?,?,?,?)";
         try(
             Connection c = DriverManager.getConnection(connectionString);
             PreparedStatement ps = c.prepareStatement(sql)
@@ -88,11 +100,13 @@ public final class SQLiteStorage implements IStoreProfiles {
             Statement getCount = c.createStatement();
             ResultSet rs = getCount.executeQuery("SELECT last_insert_rowid()");
             profile.setPrimaryKey(rs.getInt(1));
+        } catch (SQLException ex) {
+            throw new DatabaseException("Erro ao inserir no banco de dados.", ex);
         }
     }
 
     @Override
-    public void remove(Profile profile) throws SQLException {
+    public void remove(Profile profile) throws DatabaseException {
         if (!initialized) initialize(); // ensures DB is ready
         if (!profile.hasPrimaryKey()) return; // profile is not in the database yet, so there is nothing to erase
         String sql = "DELETE FROM " + TABLE_PROFILES + " WHERE Id=?";
@@ -100,11 +114,13 @@ public final class SQLiteStorage implements IStoreProfiles {
             PreparedStatement ps = c.prepareStatement(sql)){
             ps.setInt(1, profile.getPrimaryKey());
             ps.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DatabaseException("Erro ao apagar no banco de dados.", ex);
         }
     }
 
     @Override
-    public Profile read(int primaryKey) throws SQLException {
+    public Profile read(int primaryKey) throws DatabaseException {
         if (!initialized) initialize(); // ensures DB is ready
         String sql = "SELECT * FROM " + TABLE_PROFILES + " WHERE Id=?";
         try(
@@ -126,12 +142,14 @@ public final class SQLiteStorage implements IStoreProfiles {
         } catch (BadValueException ex) {
             // If we got an exception, then data from DB is not valid.
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            throw new DatabaseException("Erro ao ler banco de dados.", ex);
         }
         return null;
     }
 
     @Override
-    public List<Profile> readAll() throws SQLException{
+    public List<Profile> readAll() throws DatabaseException{
         if (!initialized) initialize(); // ensures DB is ready
         
         ArrayList<Profile> result = new ArrayList<>();
@@ -155,28 +173,40 @@ public final class SQLiteStorage implements IStoreProfiles {
         } catch (BadValueException ex) {
             // If we got an exception, then data from DB is not valid.
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        } catch (SQLException ex) {
+            throw new DatabaseException("Erro ao ler banco de dados.", ex);
+        }
         return result;
     }
     
     @Override
-    public void update(Profile profile) throws SQLException {
+    public void update(Profile profile) throws DatabaseException {
         if (!initialized) initialize(); // ensures DB is ready
         
     }
 
     @Override
-    public String getPasswordHash() throws Exception {
+    public String getPasswordHash() throws DatabaseException {
+        if (!initialized) initialize(); // ensures DB is ready
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
-    public void setPasswordHash(String password) throws Exception {
+    public void setPasswordHash(String password) throws DatabaseException {
+        if (!initialized) initialize(); // ensures DB is ready
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /** 
+     * Check if DB has a master password defined
+     * @return TRUE if the password is defined
+     * @throws DatabaseException 
+     */
     @Override
-    public boolean hasPassword() throws Exception {
+    public boolean hasPassword() throws DatabaseException {
+        if (!initialized) initialize(); // ensures DB is ready        
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
