@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import myid.cryptography.Cypher;
+import myid.cryptography.Hashing;
 import myid.model.BadValueException;
 import myid.model.DatabaseException;
 import myid.model.Profile;
@@ -188,14 +189,36 @@ public final class SQLiteStorage implements IStoreProfiles {
     @Override
     public String getPasswordHash() throws DatabaseException {
         if (!initialized) initialize(); // ensures DB is ready
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+        String sql = "SELECT * FROM " + TABLE_SETTINGS + " WHERE name='master_key'";
+        try(
+            Connection c = DriverManager.getConnection(connectionString);
+            PreparedStatement ps = c.prepareStatement(sql)
+          ){
+            ResultSet rs = ps.executeQuery(); // run query
+
+            // return first item found
+            if (rs.next()) return rs.getString("value");
+            
+        } catch (SQLException ex) {
+            throw new DatabaseException("Erro ao ler banco de dados.", ex);
+        }
+        return "";
     }
 
     @Override
     public void setPasswordHash(String password) throws DatabaseException {
         if (!initialized) initialize(); // ensures DB is ready
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        String sql = "REPLACE INTO " + TABLE_SETTINGS + " (name, value) VALUES ('master_key', ?)";
+        try(
+            Connection c = DriverManager.getConnection(connectionString);
+            PreparedStatement ps = c.prepareStatement(sql)
+           ){
+            ps.setString(1, Hashing.hashPassword(password));
+            ps.execute();
+        } catch (SQLException ex) {
+            throw new DatabaseException("Erro ao modificar banco de dados.", ex);
+        }
     }
 
     /** 
@@ -206,8 +229,17 @@ public final class SQLiteStorage implements IStoreProfiles {
     @Override
     public boolean hasPassword() throws DatabaseException {
         if (!initialized) initialize(); // ensures DB is ready        
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        String sql = "SELECT * FROM " + TABLE_SETTINGS + " WHERE name='master_key'";
+        try(
+            Connection c = DriverManager.getConnection(connectionString);
+            PreparedStatement ps = c.prepareStatement(sql)
+          ){
+            ResultSet rs = ps.executeQuery(); // run query
+            return rs.next(); // return TRUE when there is some item
+        } catch (SQLException ex) {
+            throw new DatabaseException("Erro ao ler banco de dados.", ex);
+        }
     }
 
 }

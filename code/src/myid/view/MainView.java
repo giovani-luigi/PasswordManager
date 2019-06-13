@@ -20,10 +20,12 @@ public class MainView extends javax.swing.JFrame {
     
     private void updateView(){
         Profile profile = controller.getCurrentProfile();
-        textAlias.setText(profile.getAlias());
-        textPassword.setText(profile.getPwd());
-        textUrl.setText(profile.getUrl());
-        textUser.setText(profile.getUser());
+        if (profile != null){
+            textAlias.setText(profile.getAlias());
+            textPassword.setText(profile.getPwd());
+            textUrl.setText(profile.getUrl());
+            textUser.setText(profile.getUser());
+        }
     }
     
     // <editor-fold defaultstate="collapsed" desc="Netbeans code">
