@@ -1,40 +1,29 @@
 package myid.view;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
+import controllers.MainViewController;
 import myid.cryptography.Cypher;
 import myid.model.Profile;
-import myid.storage.SQLiteStorage;
-import myid.storage.IStoreProfiles;
 
 public class MainView extends javax.swing.JFrame {
 
-    private IStoreProfiles storage = null;
-    
-    private Profile profile = null;
-    private void setOpenProfile(Profile profile){
-        this.profile = profile;        
-        textAlias.setText(profile.getAlias());
-        textPassword.setText(profile.getPwd());
-        textUrl.setText(profile.getUrl());
-        textUser.setText(profile.getUser());        
-    }
+    MainViewController controller;
     
     private void OnViewLoaded(){
-        DefaultListModel items = new DefaultListModel<>();
-        try {
-            for (Profile p : storage.readAll()){
-                items.addElement(p);
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro lendo banco de dados.");
-        }
-        profilesList.setModel(items);
+        profilesList.setModel(controller.getAllProfiles());
     }
     
     public MainView(Cypher cypher) {
         initComponents();
-        this.storage = new SQLiteStorage(cypher);
+        this.controller = new MainViewController(cypher);
+        updateView();
+    }
+    
+    private void updateView(){
+        Profile profile = controller.getCurrentProfile();
+        textAlias.setText(profile.getAlias());
+        textPassword.setText(profile.getPwd());
+        textUrl.setText(profile.getUrl());
+        textUser.setText(profile.getUser());
     }
     
     // <editor-fold defaultstate="collapsed" desc="Netbeans code">

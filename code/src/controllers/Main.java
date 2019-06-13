@@ -1,9 +1,9 @@
-package myid;
+package controllers;
 
 import myid.cryptography.CypherAES256;
 import myid.view.*;
 
-public class MyID {
+public class Main {
     /**
      * @param args the command line arguments
      */
