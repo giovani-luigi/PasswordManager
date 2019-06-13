@@ -39,6 +39,7 @@ public class MainViewController {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro lendo banco de dados.");
         }
+        return items;
     }
     
 }
