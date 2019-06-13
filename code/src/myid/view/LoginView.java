@@ -7,7 +7,7 @@ import controllers.LoginController;
 
 public class LoginView extends javax.swing.JDialog {
 
-    LoginController loginController = new LoginController();
+    LoginController controller = new LoginController();
     
     private boolean authenticated = false;
     
@@ -18,7 +18,7 @@ public class LoginView extends javax.swing.JDialog {
     private void onLoginButtonClick(){
         try {
             //validate the password:
-            authenticated = loginController.login(getPassword());
+            authenticated = controller.login(getPassword());
         } catch (Exception ex) {
             Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Erro ao tentar efetuar login.");
@@ -44,8 +44,8 @@ public class LoginView extends javax.swing.JDialog {
     private void onWindowOpened(){
         /** check if there is already a master key defined,
          * otherwise request to register one */
-        if (!loginController.isRegistered()){
-            loginController.register();
+        if (!controller.isRegistered()){
+            controller.register();
         }
     }
     

@@ -8,7 +8,7 @@ public class MainView extends javax.swing.JFrame {
 
     MainViewController controller;
     
-    private void OnViewLoaded(){
+    private void onViewLoaded(){
         profilesList.setModel(controller.getAllProfiles());
     }
     
@@ -237,7 +237,7 @@ public class MainView extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        OnViewLoaded();
+        onViewLoaded();
     }//GEN-LAST:event_formWindowOpened
 
 
