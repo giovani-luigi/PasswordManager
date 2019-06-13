@@ -15,4 +15,10 @@ public interface IStoreProfiles {
     
     public List<Profile> readAll() throws Exception;
     
+    public String getPasswordHash() throws Exception;
+    
+    public void setPasswordHash(String password) throws Exception;
+    
+    public boolean hasPassword() throws Exception;
+    
 }

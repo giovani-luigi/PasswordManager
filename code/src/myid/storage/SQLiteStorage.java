@@ -17,7 +17,7 @@ import myid.model.BadValueException;
 import myid.model.Profile;
 import myid.view.MainView;
 
-public final class StorageSQLite implements IStoreProfiles {
+public final class SQLiteStorage implements IStoreProfiles {
 
     // DB objects
     private static final String TABLE_PROFILES = "Profiles";
@@ -36,7 +36,7 @@ public final class StorageSQLite implements IStoreProfiles {
      * Creates a new instance of this class, using the specified cypher, and using the default database file path
      * @param cypher The cypher to use when reading/writing the password to the database
      */
-    public StorageSQLite(Cypher cypher) {
+    public SQLiteStorage(Cypher cypher) {
         this(getDefaultFile(), cypher); // use default file path
     }
     
@@ -45,7 +45,7 @@ public final class StorageSQLite implements IStoreProfiles {
      * @param cypher The cypher to use when reading/writing the password to the database
      * @param file The file to the database
      */
-    public StorageSQLite(File file, Cypher cypher) {
+    public SQLiteStorage(File file, Cypher cypher) {
         this.filePath = file.getAbsolutePath();
         this.initialized = false;
         this.cypher = cypher;
@@ -163,6 +163,21 @@ public final class StorageSQLite implements IStoreProfiles {
     public void update(Profile profile) throws SQLException {
         if (!initialized) initialize(); // ensures DB is ready
         
+    }
+
+    @Override
+    public String getPasswordHash() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setPasswordHash(String password) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean hasPassword() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

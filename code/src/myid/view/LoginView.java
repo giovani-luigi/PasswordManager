@@ -1,5 +1,7 @@
 package myid.view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import myid.LoginController;
 
@@ -13,9 +15,15 @@ public class LoginView extends javax.swing.JDialog {
         return authenticated;
     }
     
-    private void OnLoginButtonClick(){
-        //validate the password:
-        authenticated = loginController.login(getPassword());
+    private void onLoginButtonClick(){
+        try {
+            //validate the password:
+            authenticated = loginController.login(getPassword());
+        } catch (Exception ex) {
+            Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao tentar efetuar login.");
+            return;
+        }
         if (!authenticated) {
             JOptionPane.showMessageDialog(this, "Senha incorreta.");
         }else{
@@ -33,7 +41,7 @@ public class LoginView extends javax.swing.JDialog {
         initComponents();
     }
 
-    private void OnWindowOpened(){
+    private void onWindowOpened(){
         /** check if there is already a master key defined,
          * otherwise request to register one */
         if (!loginController.isRegistered()){
@@ -124,7 +132,7 @@ public class LoginView extends javax.swing.JDialog {
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         // TODO add your handling code here:
-        OnLoginButtonClick();
+        onLoginButtonClick();
     }//GEN-LAST:event_btnLoginMouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -133,7 +141,7 @@ public class LoginView extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        OnWindowOpened();
+        onWindowOpened();
     }//GEN-LAST:event_formWindowOpened
 
     /**

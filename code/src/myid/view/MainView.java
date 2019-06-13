@@ -4,7 +4,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import myid.cryptography.Cypher;
 import myid.model.Profile;
-import myid.storage.StorageSQLite;
+import myid.storage.SQLiteStorage;
 import myid.storage.IStoreProfiles;
 
 public class MainView extends javax.swing.JFrame {
@@ -34,7 +34,7 @@ public class MainView extends javax.swing.JFrame {
     
     public MainView(Cypher cypher) {
         initComponents();
-        this.storage = new StorageSQLite(cypher);
+        this.storage = new SQLiteStorage(cypher);
     }
     
     // <editor-fold defaultstate="collapsed" desc="Netbeans code">

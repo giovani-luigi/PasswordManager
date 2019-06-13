@@ -12,7 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import myid.storage.StorageSQLite;
+import myid.storage.SQLiteStorage;
 
 public class CypherAES256 extends Cypher {
 
@@ -30,6 +30,7 @@ public class CypherAES256 extends Cypher {
     
     @Override
     public String Encrypt(String data) {
+        if (password == null) return null; // if no password is set, return null
         try{
             //Derive the key
             SecretKeyFactory factory = SecretKeyFactory.getInstance(ALGORITHM);
@@ -55,14 +56,14 @@ public class CypherAES256 extends Cypher {
             //encode using Base so they turn into printable characters
             return Base64.getEncoder().encodeToString(encryptedTextBytes);
         }catch(Exception e){
-            Logger.getLogger(StorageSQLite.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(SQLiteStorage.class.getName()).log(Level.SEVERE, null, e);
         }
         return null;
     }
 
     @Override
     public String Decrypt(String data) {
-
+        if (password == null) return null; // if no password is set, return null
         try{
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
            
@@ -84,7 +85,7 @@ public class CypherAES256 extends Cypher {
             
             return new String(cipher.doFinal(encryptedTextBytes));
         }catch(Exception e){
-            Logger.getLogger(StorageSQLite.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(SQLiteStorage.class.getName()).log(Level.SEVERE, null, e);
         }
         return null;
         

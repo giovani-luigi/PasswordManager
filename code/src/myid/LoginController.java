@@ -1,27 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package myid;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import myid.cryptography.CypherByPass;
 import myid.cryptography.Hashing;
-import myid.storage.MasterKeyFile;
+import myid.storage.IStoreProfiles;
+import myid.storage.SQLiteStorage;
 
 public class LoginController {
 
     private static final int MAX_PWD_LENGTH = 50;
     private static final int MIN_PWD_LENGTH = 4;
     
+    private final IStoreProfiles storage = new SQLiteStorage(new CypherByPass());
+    
     public boolean isRegistered(){
-        return !new MasterKeyFile().isEmpty();
+        try {
+            return storage.hasPassword();
+        } catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
-    public boolean login(String masterKey){
-        MasterKeyFile file = new MasterKeyFile();
-        return Hashing.verifyPassword(masterKey, file.getPasswordHash());
+    public boolean login(String masterKey) throws Exception{
+        return Hashing.verifyPassword(masterKey, storage.getPasswordHash());
     }
     
     /**
@@ -36,9 +40,12 @@ public class LoginController {
             if (masterKey == null) return;
         } while(!isValid(masterKey) );
         
-        //save to a hash file
-        MasterKeyFile mkf = new MasterKeyFile();
-        mkf.storePasswordHash(masterKey);
+        try {
+            storage.setPasswordHash(masterKey);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar senha no banco de dados.");
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }
 
     /**
