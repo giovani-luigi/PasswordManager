@@ -29,7 +29,7 @@ public class Main {
         mv.setVisible(true);
     }    
     
-    // This method centralizes the instantiation of the storage object for all the application
+    // This method centralizes the instantiation of the storage object used
     private static IStoreProfiles GetStorageSystem(Cypher cypher){
         return new SQLiteStorage(cypher);
     }

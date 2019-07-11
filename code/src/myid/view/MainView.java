@@ -226,6 +226,7 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().add(jPanel7, java.awt.BorderLayout.NORTH);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonRevealMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRevealMouseClicked
