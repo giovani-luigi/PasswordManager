@@ -3,17 +3,19 @@ package controllers;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import myid.cryptography.CypherByPass;
 import myid.cryptography.Hashing;
 import myid.storage.IStoreProfiles;
-import myid.storage.SQLiteStorage;
 
 public class LoginController {
 
     private static final int MAX_PWD_LENGTH = 50;
     private static final int MIN_PWD_LENGTH = 4;
     
-    private final IStoreProfiles storage = new SQLiteStorage(new CypherByPass());
+    private final IStoreProfiles storage;
+    
+    public LoginController(IStoreProfiles storage){
+        this.storage = storage;
+    }
     
     public boolean isRegistered(){
         try {

@@ -4,10 +4,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import controllers.LoginController;
+import myid.storage.IStoreProfiles;
 
 public class LoginView extends javax.swing.JDialog {
 
-    LoginController controller = new LoginController();
+    LoginController controller;
     
     private boolean authenticated = false;
     
@@ -36,9 +37,10 @@ public class LoginView extends javax.swing.JDialog {
         return new String(textPassword.getPassword());
     }
     
-    public LoginView(java.awt.Frame parent, boolean modal) {
+    public LoginView(java.awt.Frame parent, boolean modal, IStoreProfiles storage) {
         super(parent, modal);
         initComponents();
+        controller = new LoginController(storage);
     }
 
     private void onWindowOpened(){

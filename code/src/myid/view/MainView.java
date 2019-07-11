@@ -1,8 +1,8 @@
 package myid.view;
 
 import controllers.MainViewController;
-import myid.cryptography.Cypher;
 import myid.model.Profile;
+import myid.storage.IStoreProfiles;
 
 public class MainView extends javax.swing.JFrame {
 
@@ -12,9 +12,9 @@ public class MainView extends javax.swing.JFrame {
         profilesList.setModel(controller.getAllProfiles());
     }
     
-    public MainView(Cypher cypher) {
+    public MainView(IStoreProfiles storage) {
         initComponents();
-        this.controller = new MainViewController(cypher);
+        this.controller = new MainViewController(storage);
         updateView();
     }
     
@@ -122,8 +122,6 @@ public class MainView extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 5, 5), javax.swing.BorderFactory.createTitledBorder("PERFIL")));
         jPanel1.setLayout(null);
-
-        textUser.setText("0");
         jPanel1.add(textUser);
         textUser.setBounds(160, 80, 110, 20);
 
@@ -145,8 +143,6 @@ public class MainView extends javax.swing.JFrame {
         jLabel3.setToolTipText("");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(60, 190, 90, 20);
-
-        textUrl.setText("www.google.com");
         jPanel1.add(textUrl);
         textUrl.setBounds(160, 190, 110, 20);
 
@@ -162,8 +158,6 @@ public class MainView extends javax.swing.JFrame {
         jLabel4.setText("Apelido:");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(60, 40, 90, 20);
-
-        textAlias.setText("alias");
         jPanel1.add(textAlias);
         textAlias.setBounds(160, 40, 110, 20);
 
@@ -178,10 +172,8 @@ public class MainView extends javax.swing.JFrame {
         });
         jPanel1.add(buttonReveal);
         buttonReveal.setBounds(160, 150, 110, 20);
-
-        textPassword.setText("password");
         jPanel1.add(textPassword);
-        textPassword.setBounds(160, 120, 62, 20);
+        textPassword.setBounds(160, 120, 110, 20);
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -198,6 +190,11 @@ public class MainView extends javax.swing.JFrame {
         buttonAdd.setText("ADICIONAR");
         buttonAdd.setIconTextGap(10);
         buttonAdd.setPreferredSize(new java.awt.Dimension(130, 23));
+        buttonAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonAddMouseClicked(evt);
+            }
+        });
 
         buttonSettings.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         buttonSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/64639 - setting tools.png"))); // NOI18N
@@ -239,6 +236,10 @@ public class MainView extends javax.swing.JFrame {
         // TODO add your handling code here:
         onViewLoaded();
     }//GEN-LAST:event_formWindowOpened
+
+    private void buttonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAddMouseClicked
+        controller.addNewProfile();
+    }//GEN-LAST:event_buttonAddMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
