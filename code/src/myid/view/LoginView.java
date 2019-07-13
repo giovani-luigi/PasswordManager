@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import controllers.LoginController;
 import myid.storage.IStoreProfiles;
-import sun.awt.ModalExclude;
 
 public class LoginView extends javax.swing.JDialog {
 

@@ -80,10 +80,12 @@
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="textPassword" alignment="0" max="32767" attributes="0"/>
-                              <Component id="textAlias" alignment="0" max="32767" attributes="0"/>
-                              <Component id="textUser" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="textAlias" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="textUser" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="textPassword" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -150,8 +152,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="textUser">
         </Component>
-        <Component class="javax.swing.JPasswordField" name="textPassword">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -171,6 +171,8 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textUrl">
+        </Component>
+        <Component class="javax.swing.JTextField" name="textPassword">
         </Component>
       </SubComponents>
     </Container>

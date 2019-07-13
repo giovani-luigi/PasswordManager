@@ -27,20 +27,35 @@ public class EditProfileController {
         this.alias = alias;
     }
 
+    public String getAlias() {
+        return alias;
+    }
+    
     public void setPassword(String password) {
         this.password = password;
     }
 
+    public String getPassword() {
+        return password;
+    }
+    
     public void setUser(String user) {
         this.user = user;
+    }
+    
+    public String getUser() {
+        return user;
     }
 
     public void setUrl(String url) {
         this.url = url;
     }
-
-    // </editor-fold>
+  
+    public String getUrl() {
+        return url;
+    }
     
+    // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Constructor">
     
@@ -57,11 +72,11 @@ public class EditProfileController {
        // <editor-fold defaultstate="collapsed" desc="Public methods">
     
     /**
-     * Creates a profile using the data from the fields in the view
+     * Creates a new profile using the updated data from the fields in the view
      * @return the new profile
      * @exception BadValueException thrown when a value fails the validation rules
      */
-    public Profile createProfile() throws BadValueException{
+    public Profile getEditedProfile() throws BadValueException{
         Profile p = new Profile();
         p.setAlias(alias);
         p.setPwd(password);
@@ -72,7 +87,7 @@ public class EditProfileController {
     
     public boolean saveProfile(){
         try {
-            storage.update(createProfile());
+            storage.update(getEditedProfile());
             return true;
         } catch (DatabaseException ex) {
             Logger.getLogger(NewProfileController.class.getName()).log(Level.SEVERE, null, ex);

@@ -178,6 +178,20 @@ public final class SQLiteStorage implements IStoreProfiles {
     @Override
     public void update(Profile profile) throws DatabaseException {
         if (!initialized) initialize(); // ensures DB is ready
+
+        String sql = "UPDATE " + TABLE_PROFILES + " SET pwd=?, user=?, url=? WHERE alias=?";
+        try(
+            Connection c = DriverManager.getConnection(connectionString);
+            PreparedStatement ps = c.prepareStatement(sql)
+           ){
+            ps.setString(1, cypher.Encrypt(profile.getPwd()));
+            ps.setString(2, cypher.Encrypt(profile.getUser()));
+            ps.setString(3, profile.getUrl());
+            ps.setString(4, profile.getAlias());   
+            ps.execute();
+        } catch (SQLException ex) {
+            throw new DatabaseException("Erro ao acessar banco de dados.", ex);
+        }
     }
 
     @Override
@@ -244,4 +258,5 @@ public final class SQLiteStorage implements IStoreProfiles {
         if (fieldValue == null) return "";
         return cypher.Decrypt(fieldValue);
     }
+    
 }

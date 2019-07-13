@@ -18,12 +18,10 @@ public class MainView extends javax.swing.JFrame {
     }
     
     private void updateAllView(){
-        
         // update list of available profiles
-        profilesList.setModel(controller.getProfilesList());
-        
+        profilesList.setModel(controller.getAllProfileAliases());
+        // update displayed data of current profile
         updateCurrentProfileView();
-        
     }
     
     /*

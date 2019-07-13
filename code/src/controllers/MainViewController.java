@@ -32,7 +32,7 @@ public class MainViewController {
         JOptionPane.showMessageDialog(null, "Erro acessando banco de dados.");
     }
     
-    public ListModel getProfilesList(){
+    public ListModel getAllProfileAliases(){
         DefaultListModel items = new DefaultListModel();
         try {
             for (String alias : storage.readAllAliases()){
@@ -54,6 +54,13 @@ public class MainViewController {
         if (currentProfile == null) return;
         EditProfileView view = new EditProfileView(storage, currentProfile);
         view.setVisible(true);
+        try {
+            // after the dialog closes, reload the current profile in case of any change
+            setCurrentProfile(storage.read(getCurrentProfile().getAlias()));
+        } catch (DatabaseException ex) {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            showDatabaseError();
+        }
     }
     
     public void selectionChanged(String selectedProfileAlias){

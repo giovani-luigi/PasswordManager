@@ -8,8 +8,11 @@ public class EditProfileView extends javax.swing.JDialog {
 
     EditProfileController controller;
 
-    private void onViewLoaded(){
-        
+    private void updateView(){
+        textAlias.setText(controller.getAlias());
+        textUser.setText(controller.getUser());
+        textPassword.setText(controller.getPassword());
+        textUrl.setText(controller.getUrl());
     }
     
     public EditProfileView(IStoreProfiles storage, Profile profile) {
@@ -17,11 +20,7 @@ public class EditProfileView extends javax.swing.JDialog {
         initComponents();
         controller = new EditProfileController(storage, profile);
     }
-    
-    private void onCloseButtonClicked() {
-        setVisible(false);
-    }
-    
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,10 +35,10 @@ public class EditProfileView extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         textUser = new javax.swing.JTextField();
-        textPassword = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         textUrl = new javax.swing.JTextField();
+        textPassword = new javax.swing.JTextField();
         btnOk = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
@@ -84,10 +83,11 @@ public class EditProfileView extends javax.swing.JDialog {
                                 .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textPassword)
-                            .addComponent(textAlias)
-                            .addComponent(textUser, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textAlias)
+                                .addComponent(textUser, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -176,11 +176,11 @@ public class EditProfileView extends javax.swing.JDialog {
 
     private void btnOkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseClicked
         controller.setAlias(textAlias.getText());
-        controller.setPassword(new String(textPassword.getPassword()) ); // we dont care about GUI safety
+        controller.setPassword(textPassword.getText()); // we dont care about GUI safety
         controller.setUser(textUser.getText());
         controller.setUrl(textUrl.getText());
         if (controller.saveProfile()){
-            onCloseButtonClicked(); // close dialog if insert was successful
+            setVisible(false); // close dialog if insert was successful
         }
     }//GEN-LAST:event_btnOkMouseClicked
 
@@ -189,7 +189,7 @@ public class EditProfileView extends javax.swing.JDialog {
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-        onCloseButtonClicked();
+        setVisible(false);
     }//GEN-LAST:event_btnCancelMouseClicked
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -198,7 +198,7 @@ public class EditProfileView extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        onViewLoaded();
+        updateView();
     }//GEN-LAST:event_formWindowOpened
 
 
@@ -211,7 +211,7 @@ public class EditProfileView extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField textAlias;
-    private javax.swing.JPasswordField textPassword;
+    private javax.swing.JTextField textPassword;
     private javax.swing.JTextField textUrl;
     private javax.swing.JTextField textUser;
     // End of variables declaration//GEN-END:variables
