@@ -9,11 +9,11 @@ public interface IStoreProfiles {
     
     public void remove(Profile profile) throws DatabaseException;
     
-    public Profile read(int primaryKey) throws DatabaseException;
+    public Profile read(String alias) throws DatabaseException;
     
     public void update(Profile profile) throws DatabaseException;
     
-    public List<Profile> readAll() throws DatabaseException;
+    public List<String> readAllAliases() throws DatabaseException;
     
     public String getPasswordHash() throws DatabaseException;
     

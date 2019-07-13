@@ -9,22 +9,39 @@ public class MainView extends javax.swing.JFrame {
     MainViewController controller;
     
     private void onViewLoaded(){
-        profilesList.setModel(controller.getAllProfiles());
+        updateView();
     }
     
     public MainView(IStoreProfiles storage) {
         initComponents();
         this.controller = new MainViewController(storage);
-        updateView();
     }
     
     private void updateView(){
+        
+        // update list of available profiles
+        profilesList.setModel(controller.getProfilesList());
+        
+        updateCurrentProfileInfo();
+        
+    }
+    
+    /*
+    * update info of selected profile
+    **/
+    private void updateCurrentProfileInfo(){
+        
         Profile profile = controller.getCurrentProfile();
         if (profile != null){
             textAlias.setText(profile.getAlias());
             textPassword.setText(profile.getPwd());
             textUrl.setText(profile.getUrl());
             textUser.setText(profile.getUser());
+        }else{
+            textAlias.setText("");
+            textPassword.setText("");
+            textUrl.setText("");
+            textUser.setText("");
         }
     }
     
@@ -71,10 +88,10 @@ public class MainView extends javax.swing.JFrame {
         jSplitPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(11, 11, 11, 11));
         jSplitPane1.setDividerLocation(200);
 
-        profilesList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        profilesList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                profilesListValueChanged(evt);
+            }
         });
         jScrollPane1.setViewportView(profilesList);
 
@@ -241,6 +258,12 @@ public class MainView extends javax.swing.JFrame {
     private void buttonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAddMouseClicked
         controller.addNewProfile();
     }//GEN-LAST:event_buttonAddMouseClicked
+
+    private void profilesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_profilesListValueChanged
+        // TODO add your handling code here:
+        controller.selectionChanged(profilesList.getSelectedValue());
+        updateCurrentProfileInfo();
+    }//GEN-LAST:event_profilesListValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

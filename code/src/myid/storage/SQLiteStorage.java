@@ -92,8 +92,7 @@ public final class SQLiteStorage implements IStoreProfiles {
             PreparedStatement ps = c.prepareStatement(sql)
           ){
             ps.setString(1, profile.getAlias());
-            String cryptPwd = cypher.Encrypt(profile.getPwd());
-            ps.setString(2, cryptPwd);
+            ps.setString(2, cypher.Encrypt(profile.getPwd()));
             ps.setString(3, cypher.Encrypt(profile.getUser()));
             ps.setString(4, profile.getUrl());
             ps.execute();
@@ -121,15 +120,18 @@ public final class SQLiteStorage implements IStoreProfiles {
         }
     }
 
+    /*
+    * Search a profile with the given alias, returning null when not found.
+    **/
     @Override
-    public Profile read(int primaryKey) throws DatabaseException {
+    public Profile read(String alias) throws DatabaseException {
         if (!initialized) initialize(); // ensures DB is ready
-        String sql = "SELECT * FROM " + TABLE_PROFILES + " WHERE Id=?";
+        String sql = "SELECT * FROM " + TABLE_PROFILES + " WHERE alias=?";
         try(
             Connection c = DriverManager.getConnection(connectionString);
             PreparedStatement ps = c.prepareStatement(sql)
           ){
-            ps.setInt(1, primaryKey); // set the Id value we are looking for
+            ps.setString(1, alias); // set the Id value we are looking for
             ResultSet rs = ps.executeQuery(); // run query
 
             // read first item found with the specified primary key
@@ -137,7 +139,7 @@ public final class SQLiteStorage implements IStoreProfiles {
                 Profile p = new Profile(rs.getInt("Id"));
                 p.setAlias(rs.getString("alias"));
                 p.setPwd(decryptDatabaseField(rs.getString("pwd")));
-                p.setPwd(decryptDatabaseField(rs.getString("user")));
+                p.setUser(decryptDatabaseField(rs.getString("user")));
                 p.setUrl(rs.getString("url"));
                 return p;
             }
@@ -151,12 +153,12 @@ public final class SQLiteStorage implements IStoreProfiles {
     }
 
     @Override
-    public List<Profile> readAll() throws DatabaseException{
+    public List<String> readAllAliases() throws DatabaseException{
         if (!initialized) initialize(); // ensures DB is ready
         
-        ArrayList<Profile> result = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
         
-        String sql = "SELECT * FROM " + TABLE_PROFILES;
+        String sql = "SELECT alias FROM " + TABLE_PROFILES;
         try(
             Connection c = DriverManager.getConnection(connectionString);
             PreparedStatement ps = c.prepareStatement(sql)
@@ -165,18 +167,8 @@ public final class SQLiteStorage implements IStoreProfiles {
 
             // read first item found with the specified primary key
             while (rs.next()){
-                try{
-                    Profile p = new Profile(rs.getInt("Id"));
-                    p.setAlias(rs.getString("alias"));
-                    p.setPwd(decryptDatabaseField(rs.getString("pwd")));
-                    p.setUser(decryptDatabaseField(rs.getString("user")));
-                    p.setUrl(rs.getString("url"));
-                    result.add(p);
-                }catch (BadValueException ex){
-                    // skip invalid items
-                    Logger.getLogger(MainView.class.getName()).log(Level.INFO, "Invalid item read from DB", ex);
-                }
-            }                
+                result.add(rs.getString("alias"));
+            }
         } catch (SQLException ex) {
             throw new DatabaseException("Erro ao ler banco de dados.", ex);
         }

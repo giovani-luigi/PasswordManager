@@ -68,4 +68,10 @@ public class Profile {
     public boolean hasPrimaryKey(){ 
         return (this.primaryKey > -1);
     }
+    
+    @Override
+    public String toString(){
+        return alias;
+    }
+    
 }
