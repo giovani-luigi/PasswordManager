@@ -65,7 +65,7 @@ public final class SQLiteStorage implements IStoreProfiles {
                          "(Id integer PRIMARY KEY," +   // primary key
                          "alias TEXT," +   // alias (e.g. 'hotmail')
                          "pwd TEXT," +     // crypted password
-                         "user TEXT," +    // user name
+                         "user TEXT," +    // crypted user name
                          "url TEXT)";      // url to the service when applicable
         
         //Table to store all settings (the master password hash)
@@ -92,7 +92,8 @@ public final class SQLiteStorage implements IStoreProfiles {
             PreparedStatement ps = c.prepareStatement(sql)
           ){
             ps.setString(1, profile.getAlias());
-            ps.setString(2, cypher.Encrypt(profile.getPwd()));
+            String cryptPwd = cypher.Encrypt(profile.getPwd());
+            ps.setString(2, cryptPwd);
             ps.setString(3, cypher.Encrypt(profile.getUser()));
             ps.setString(4, profile.getUrl());
             ps.execute();
@@ -135,8 +136,8 @@ public final class SQLiteStorage implements IStoreProfiles {
             if (rs.next()){ 
                 Profile p = new Profile(rs.getInt("Id"));
                 p.setAlias(rs.getString("alias"));
-                p.setPwd(cypher.Decrypt(rs.getString("pwd")));
-                p.setUser(rs.getString("user"));
+                p.setPwd(decryptDatabaseField(rs.getString("pwd")));
+                p.setPwd(decryptDatabaseField(rs.getString("user")));
                 p.setUrl(rs.getString("url"));
                 return p;
             }
@@ -163,17 +164,19 @@ public final class SQLiteStorage implements IStoreProfiles {
             ResultSet rs = ps.executeQuery(); // run query
 
             // read first item found with the specified primary key
-            if (rs.next()){ 
-                Profile p = new Profile(rs.getInt("Id"));
-                p.setAlias(rs.getString("alias"));
-                p.setPwd(cypher.Decrypt(rs.getString("pwd")));
-                p.setUser(rs.getString("user"));
-                p.setUrl(rs.getString("url"));
-                result.add(p);
-            }
-        } catch (BadValueException ex) {
-            // If we got an exception, then data from DB is not valid.
-            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            while (rs.next()){
+                try{
+                    Profile p = new Profile(rs.getInt("Id"));
+                    p.setAlias(rs.getString("alias"));
+                    p.setPwd(decryptDatabaseField(rs.getString("pwd")));
+                    p.setUser(decryptDatabaseField(rs.getString("user")));
+                    p.setUrl(rs.getString("url"));
+                    result.add(p);
+                }catch (BadValueException ex){
+                    // skip invalid items
+                    Logger.getLogger(MainView.class.getName()).log(Level.INFO, "Invalid item read from DB", ex);
+                }
+            }                
         } catch (SQLException ex) {
             throw new DatabaseException("Erro ao ler banco de dados.", ex);
         }
@@ -183,7 +186,6 @@ public final class SQLiteStorage implements IStoreProfiles {
     @Override
     public void update(Profile profile) throws DatabaseException {
         if (!initialized) initialize(); // ensures DB is ready
-        
     }
 
     @Override
@@ -241,5 +243,13 @@ public final class SQLiteStorage implements IStoreProfiles {
             throw new DatabaseException("Erro ao ler banco de dados.", ex);
         }
     }
-
+    
+    /*
+    * Attempt to decrypt an input parameter.
+    * If the parameter is null, returns empty string.
+    **/
+    private String decryptDatabaseField(String fieldValue){
+        if (fieldValue == null) return "";
+        return cypher.Decrypt(fieldValue);
+    }
 }

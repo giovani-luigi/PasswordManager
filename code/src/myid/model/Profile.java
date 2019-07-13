@@ -29,6 +29,7 @@ public class Profile {
     }
 
     public void setUser(String user) throws BadValueException {
+        if (user == null) throw new BadValueException("Valor nulo.");
         if (user.length() < 1) throw new BadValueException("Usuário deve conter ao menos 1 caracter.");
         if (user.length() > 50) throw new BadValueException("Usuário deve ter no máximo 50 caracteres.");
         this.user = user;
@@ -39,6 +40,7 @@ public class Profile {
     }
 
     public void setPwd(String pwd) throws BadValueException {
+        if (pwd == null) throw new BadValueException("Valor nulo.");
         if (pwd.length() < 6) throw new BadValueException("Senha deve conter ao menos 6 caracteres.");
         if (pwd.length() > 50) throw new BadValueException("Senha deve ter no máximo 50 caracteres.");
         this.pwd = pwd;
@@ -49,6 +51,7 @@ public class Profile {
     }
 
     public void setAlias(String alias) throws BadValueException {
+        if (alias == null) throw new BadValueException("Valor nulo.");
         if (alias.length() < 1) throw new BadValueException("Alias deve conter ao menos 1 caracter.");
         if (alias.length() > 50) throw new BadValueException("Alias deve ter no máximo 50 caracteres.");
         this.alias = alias;

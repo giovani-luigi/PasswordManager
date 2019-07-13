@@ -1,6 +1,5 @@
 package myid.cryptography;
 
-import myid.model.BadValueException;
 import java.nio.ByteBuffer;
 import java.security.AlgorithmParameters;
 import javax.crypto.Cipher;
@@ -20,7 +19,7 @@ public class CypherAES256 extends Cypher {
     
     private static final int SALT_LENGTH = 20;
     private static final String ALGORITHM = "PBKDF2WithHmacSHA1";
-    private static final int ITERATIONS = 65536;
+    private static final int ITERATIONS = 1024;
     private static final int KEY_LENGTH = 256;
     
     public CypherAES256(String password){
@@ -54,7 +53,7 @@ public class CypherAES256 extends Cypher {
             System.arraycopy(encryptedTextBytes, 0, buffer, salt.length + ivBytes.length, encryptedTextBytes.length);
 
             //encode using Base so they turn into printable characters
-            return Base64.getEncoder().encodeToString(encryptedTextBytes);
+            return Base64.getEncoder().encodeToString(buffer);
         }catch(Exception e){
             Logger.getLogger(SQLiteStorage.class.getName()).log(Level.SEVERE, null, e);
         }
