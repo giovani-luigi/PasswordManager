@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
         
         //request login (to validate the master key)
-        LoginView lv = new LoginView(null, true, GetStorageSystem(new CypherByPass()));
+        LoginView lv = new LoginView(GetStorageSystem(new CypherByPass()));
         lv.setVisible(true); //show dialog and wait for it to close
        
         //if we are not authenticated after the user closed the form, exit application

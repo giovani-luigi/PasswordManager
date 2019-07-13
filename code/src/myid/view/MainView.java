@@ -9,7 +9,7 @@ public class MainView extends javax.swing.JFrame {
     MainViewController controller;
     
     private void onViewLoaded(){
-        updateView();
+        updateAllView();
     }
     
     public MainView(IStoreProfiles storage) {
@@ -17,19 +17,19 @@ public class MainView extends javax.swing.JFrame {
         this.controller = new MainViewController(storage);
     }
     
-    private void updateView(){
+    private void updateAllView(){
         
         // update list of available profiles
         profilesList.setModel(controller.getProfilesList());
         
-        updateCurrentProfileInfo();
+        updateCurrentProfileView();
         
     }
     
     /*
     * update info of selected profile
     **/
-    private void updateCurrentProfileInfo(){
+    private void updateCurrentProfileView(){
         
         Profile profile = controller.getCurrentProfile();
         if (profile != null){
@@ -107,6 +107,11 @@ public class MainView extends javax.swing.JFrame {
         buttonEdit.setText("EDITAR");
         buttonEdit.setIconTextGap(10);
         buttonEdit.setPreferredSize(new java.awt.Dimension(130, 23));
+        buttonEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonEditMouseClicked(evt);
+            }
+        });
 
         buttonRemove.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         buttonRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/35931 - cross.png"))); // NOI18N
@@ -262,8 +267,14 @@ public class MainView extends javax.swing.JFrame {
     private void profilesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_profilesListValueChanged
         // TODO add your handling code here:
         controller.selectionChanged(profilesList.getSelectedValue());
-        updateCurrentProfileInfo();
+        updateCurrentProfileView();
     }//GEN-LAST:event_profilesListValueChanged
+
+    private void buttonEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEditMouseClicked
+        // TODO add your handling code here:
+        controller.editCurrentProfile();
+        updateCurrentProfileView();
+    }//GEN-LAST:event_buttonEditMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

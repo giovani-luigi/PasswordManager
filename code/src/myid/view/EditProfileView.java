@@ -1,26 +1,27 @@
 package myid.view;
 
-import controllers.NewProfileController;
+import controllers.EditProfileController;
+import myid.model.Profile;
 import myid.storage.IStoreProfiles;
 
-/**
- *
- * @author Giovani
- */
-public class NewProfileView extends javax.swing.JDialog {
+public class EditProfileView extends javax.swing.JDialog {
 
-    NewProfileController controller;
+    EditProfileController controller;
+
+    private void onViewLoaded(){
+        
+    }
     
-    public NewProfileView(IStoreProfiles storage) {
+    public EditProfileView(IStoreProfiles storage, Profile profile) {
         super(null, ModalityType.APPLICATION_MODAL);
         initComponents();
-        controller = new NewProfileController(storage);
+        controller = new EditProfileController(storage, profile);
     }
-        
+    
     private void onCloseButtonClicked() {
         setVisible(false);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,8 +31,6 @@ public class NewProfileView extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnOk = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         textAlias = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -41,38 +40,19 @@ public class NewProfileView extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         textUrl = new javax.swing.JTextField();
+        btnOk = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        btnOk.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/35637 - ok.png"))); // NOI18N
-        btnOk.setText("CONFIRMA");
-        btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnOkMouseClicked(evt);
-            }
-        });
-        btnOk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOkActionPerformed(evt);
-            }
-        });
-
-        btnCancel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/35972 - delete.png"))); // NOI18N
-        btnCancel.setText("CANCELA");
-        btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCancelMouseClicked(evt);
-            }
-        });
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("DADOS"));
+
+        textAlias.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -112,7 +92,7 @@ public class NewProfileView extends javax.swing.JDialog {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(textUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,8 +113,36 @@ public class NewProfileView extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
+
+        btnOk.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/35637 - ok.png"))); // NOI18N
+        btnOk.setText("CONFIRMA");
+        btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOkMouseClicked(evt);
+            }
+        });
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
+
+        btnCancel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/35972 - delete.png"))); // NOI18N
+        btnCancel.setText("CANCELA");
+        btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelMouseClicked(evt);
+            }
+        });
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,7 +154,7 @@ public class NewProfileView extends javax.swing.JDialog {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnOk)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -173,7 +181,7 @@ public class NewProfileView extends javax.swing.JDialog {
         controller.setUrl(textUrl.getText());
         if (controller.saveProfile()){
             onCloseButtonClicked(); // close dialog if insert was successful
-        }        
+        }
     }//GEN-LAST:event_btnOkMouseClicked
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
@@ -187,6 +195,11 @@ public class NewProfileView extends javax.swing.JDialog {
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        onViewLoaded();
+    }//GEN-LAST:event_formWindowOpened
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -202,5 +215,4 @@ public class NewProfileView extends javax.swing.JDialog {
     private javax.swing.JTextField textUrl;
     private javax.swing.JTextField textUser;
     // End of variables declaration//GEN-END:variables
-
 }

@@ -8,6 +8,7 @@ import javax.swing.ListModel;
 import myid.model.DatabaseException;
 import myid.model.Profile;
 import myid.storage.IStoreProfiles;
+import myid.view.EditProfileView;
 import myid.view.NewProfileView;
 
 public class MainViewController {
@@ -45,8 +46,14 @@ public class MainViewController {
     }
 
     public void addNewProfile() {
-        NewProfileView view = new NewProfileView(null, true, storage);
+        NewProfileView view = new NewProfileView(storage);
         view.setVisible(true); // show dialog, and wait for it to close
+    }
+    
+    public void editCurrentProfile(){
+        if (currentProfile == null) return;
+        EditProfileView view = new EditProfileView(storage, currentProfile);
+        view.setVisible(true);
     }
     
     public void selectionChanged(String selectedProfileAlias){

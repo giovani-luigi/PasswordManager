@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import controllers.LoginController;
 import myid.storage.IStoreProfiles;
+import sun.awt.ModalExclude;
 
 public class LoginView extends javax.swing.JDialog {
 
@@ -37,8 +38,8 @@ public class LoginView extends javax.swing.JDialog {
         return new String(textPassword.getPassword());
     }
     
-    public LoginView(java.awt.Frame parent, boolean modal, IStoreProfiles storage) {
-        super(parent, modal);
+    public LoginView(IStoreProfiles storage) {
+        super(null, ModalityType.APPLICATION_MODAL);
         initComponents();
         controller = new LoginController(storage);
     }
