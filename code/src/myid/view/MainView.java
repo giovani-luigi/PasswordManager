@@ -1,6 +1,6 @@
 package myid.view;
 
-import controllers.MainViewController;
+import myid.controllers.MainViewController;
 import myid.model.Profile;
 import myid.storage.IStoreProfiles;
 
@@ -101,7 +101,7 @@ public class MainView extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 0, 5), javax.swing.BorderFactory.createTitledBorder("OPÇÕES")));
 
         buttonEdit.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        buttonEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/36322 - pencil.png"))); // NOI18N
+        buttonEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/myid/icons/36322 - pencil.png"))); // NOI18N
         buttonEdit.setText("EDITAR");
         buttonEdit.setIconTextGap(10);
         buttonEdit.setPreferredSize(new java.awt.Dimension(130, 23));
@@ -112,7 +112,7 @@ public class MainView extends javax.swing.JFrame {
         });
 
         buttonRemove.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        buttonRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/35931 - cross.png"))); // NOI18N
+        buttonRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/myid/icons/35931 - cross.png"))); // NOI18N
         buttonRemove.setText("REMOVER");
         buttonRemove.setIconTextGap(10);
         buttonRemove.setPreferredSize(new java.awt.Dimension(130, 23));
@@ -206,7 +206,7 @@ public class MainView extends javax.swing.JFrame {
         jPanel7.setRequestFocusEnabled(false);
 
         buttonAdd.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        buttonAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/93209 - netvibes.png"))); // NOI18N
+        buttonAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/myid/icons/93209 - netvibes.png"))); // NOI18N
         buttonAdd.setText("ADICIONAR");
         buttonAdd.setIconTextGap(10);
         buttonAdd.setPreferredSize(new java.awt.Dimension(130, 23));
@@ -217,7 +217,7 @@ public class MainView extends javax.swing.JFrame {
         });
 
         buttonSettings.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        buttonSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/64639 - setting tools.png"))); // NOI18N
+        buttonSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/myid/icons/64639 - setting tools.png"))); // NOI18N
         buttonSettings.setText("AJUSTES");
         buttonSettings.setIconTextGap(10);
         buttonSettings.setPreferredSize(new java.awt.Dimension(90, 23));

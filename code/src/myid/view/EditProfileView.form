@@ -182,7 +182,7 @@
           <Font name="Tahoma" size="12" style="1"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/icons/35637 - ok.png"/>
+          <Image iconType="3" name="/myid/icons/35637 - ok.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="CONFIRMA"/>
       </Properties>
@@ -197,7 +197,7 @@
           <Font name="Tahoma" size="12" style="1"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/icons/35972 - delete.png"/>
+          <Image iconType="3" name="/myid/icons/35972 - delete.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="CANCELA"/>
       </Properties>

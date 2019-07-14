@@ -3,7 +3,7 @@ package myid.view;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import controllers.LoginController;
+import myid.controllers.LoginController;
 import myid.storage.IStoreProfiles;
 
 public class LoginView extends javax.swing.JDialog {

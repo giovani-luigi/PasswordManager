@@ -1,4 +1,4 @@
-package controllers;
+package myid.controllers;
 
 import myid.cryptography.Cypher;
 import myid.cryptography.CypherAES256;

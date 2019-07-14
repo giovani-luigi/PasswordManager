@@ -1,6 +1,6 @@
 package myid.view;
 
-import controllers.EditProfileController;
+import myid.controllers.EditProfileController;
 import myid.model.Profile;
 import myid.storage.IStoreProfiles;
 
@@ -117,7 +117,7 @@ public class EditProfileView extends javax.swing.JDialog {
         );
 
         btnOk.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/35637 - ok.png"))); // NOI18N
+        btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/myid/icons/35637 - ok.png"))); // NOI18N
         btnOk.setText("CONFIRMA");
         btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -131,7 +131,7 @@ public class EditProfileView extends javax.swing.JDialog {
         });
 
         btnCancel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/35972 - delete.png"))); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/myid/icons/35972 - delete.png"))); // NOI18N
         btnCancel.setText("CANCELA");
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

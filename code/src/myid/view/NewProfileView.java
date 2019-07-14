@@ -1,6 +1,6 @@
 package myid.view;
 
-import controllers.NewProfileController;
+import myid.controllers.NewProfileController;
 import myid.storage.IStoreProfiles;
 
 /**
@@ -45,7 +45,7 @@ public class NewProfileView extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnOk.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/35637 - ok.png"))); // NOI18N
+        btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/myid/icons/35637 - ok.png"))); // NOI18N
         btnOk.setText("CONFIRMA");
         btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -59,7 +59,7 @@ public class NewProfileView extends javax.swing.JDialog {
         });
 
         btnCancel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/35972 - delete.png"))); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/myid/icons/35972 - delete.png"))); // NOI18N
         btnCancel.setText("CANCELA");
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

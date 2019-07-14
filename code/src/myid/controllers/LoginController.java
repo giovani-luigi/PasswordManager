@@ -1,4 +1,4 @@
-package controllers;
+package myid.controllers;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
