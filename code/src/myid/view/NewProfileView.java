@@ -9,7 +9,7 @@ import myid.storage.IStoreProfiles;
  */
 public class NewProfileView extends javax.swing.JDialog {
 
-    NewProfileController controller;
+    private final NewProfileController controller;
     
     public NewProfileView(IStoreProfiles storage) {
         super(null, ModalityType.APPLICATION_MODAL);

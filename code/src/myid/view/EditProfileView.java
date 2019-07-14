@@ -6,7 +6,7 @@ import myid.storage.IStoreProfiles;
 
 public class EditProfileView extends javax.swing.JDialog {
 
-    EditProfileController controller;
+    private final EditProfileController controller;
 
     private void updateView(){
         textAlias.setText(controller.getAlias());

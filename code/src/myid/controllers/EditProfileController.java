@@ -69,14 +69,14 @@ public class EditProfileController {
     
     // </editor-fold>
  
-       // <editor-fold defaultstate="collapsed" desc="Public methods">
+       // <editor-fold defaultstate="collapsed" desc="Methods">
     
     /**
      * Creates a new profile using the updated data from the fields in the view
      * @return the new profile
      * @exception BadValueException thrown when a value fails the validation rules
      */
-    public Profile getEditedProfile() throws BadValueException{
+    private Profile getEditedProfile() throws BadValueException{
         Profile p = new Profile();
         p.setAlias(alias);
         p.setPwd(password);
