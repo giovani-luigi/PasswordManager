@@ -73,7 +73,6 @@ public class MainView extends javax.swing.JFrame {
         textPassword = new javax.swing.JPasswordField();
         jPanel7 = new javax.swing.JPanel();
         buttonAdd = new javax.swing.JButton();
-        buttonSettings = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(630, 570));
@@ -116,6 +115,11 @@ public class MainView extends javax.swing.JFrame {
         buttonRemove.setText("REMOVER");
         buttonRemove.setIconTextGap(10);
         buttonRemove.setPreferredSize(new java.awt.Dimension(130, 23));
+        buttonRemove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonRemoveMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -216,30 +220,20 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
-        buttonSettings.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        buttonSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/myid/icons/64639 - setting tools.png"))); // NOI18N
-        buttonSettings.setText("AJUSTES");
-        buttonSettings.setIconTextGap(10);
-        buttonSettings.setPreferredSize(new java.awt.Dimension(90, 23));
-
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(294, Short.MAX_VALUE))
+                .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(430, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                    .addComponent(buttonSettings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(buttonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -260,11 +254,12 @@ public class MainView extends javax.swing.JFrame {
 
     private void buttonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAddMouseClicked
         controller.addNewProfile();
+        updateAllView();
     }//GEN-LAST:event_buttonAddMouseClicked
 
     private void profilesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_profilesListValueChanged
         // TODO add your handling code here:
-        controller.selectionChanged(profilesList.getSelectedValue());
+        controller.selectProfile(profilesList.getSelectedValue());
         updateCurrentProfileView();
     }//GEN-LAST:event_profilesListValueChanged
 
@@ -274,6 +269,12 @@ public class MainView extends javax.swing.JFrame {
         updateCurrentProfileView();
     }//GEN-LAST:event_buttonEditMouseClicked
 
+    private void buttonRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRemoveMouseClicked
+        // TODO add your handling code here:
+        controller.eraseCurrentProfile();
+        updateAllView();
+    }//GEN-LAST:event_buttonRemoveMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdd;
@@ -281,7 +282,6 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton buttonOpenUrl;
     private javax.swing.JButton buttonRemove;
     private javax.swing.JButton buttonReveal;
-    private javax.swing.JButton buttonSettings;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

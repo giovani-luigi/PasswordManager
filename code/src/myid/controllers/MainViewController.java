@@ -63,9 +63,25 @@ public class MainViewController {
         }
     }
     
-    public void selectionChanged(String selectedProfileAlias){
+    public void selectProfile(String profileAlias){
         try {
-            setCurrentProfile(storage.read(selectedProfileAlias));
+            setCurrentProfile(storage.read(profileAlias));
+        } catch (DatabaseException ex) {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            showDatabaseError();
+        }
+    }
+    
+    public void eraseCurrentProfile(){
+        if (currentProfile==null) return;
+        // ask confirmation
+        if (JOptionPane.showConfirmDialog(null, 
+                "Tem certeza que deseja apagar o perfil '" + currentProfile.getAlias() + "' ?"
+                , "Confirme", JOptionPane.YES_NO_OPTION) == 1) return;
+        try {
+            storage.remove(currentProfile);
+            currentProfile = null;
+            JOptionPane.showMessageDialog(null, "Perfil apagado.");
         } catch (DatabaseException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
             showDatabaseError();
