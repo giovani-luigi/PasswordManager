@@ -39,7 +39,7 @@ public class LoginController {
         String masterKey;
         do{
             masterKey = JOptionPane.showInputDialog("Digite a senha mestre para criptografar os dados:");
-            if (masterKey == null) return;
+            if (masterKey == null) System.exit(0);  // user closed the dialog
         } while(!isValid(masterKey) );
         
         try {
