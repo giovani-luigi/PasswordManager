@@ -1,54 +1,23 @@
+## Overview:
+**Summary:** A password manager with graphical user interface, using AES 256 cryptography and SQLite storage.
+**Author:** Giovani Luigi R. B. 
+**Programming language:** Java 1.8 (*Netbeans project*)
 
+## Dependencies:
 
-	Projeto: MyID - Gerenciador de senhas
-	Autor: Giovani Luigi R. B. 
-	Linguagem: Java 1.8
+ - **Database lib. (included)**
+	 - Included a library to access SQLite files.
 
-	NOTAS:
-		
-		Objetivo:
-		
-			Implementação de um sistema gerenciador de senhas, com armazenamento criptografado em banco de dados.
-		
-		Implementação:
-		
-			O sistema foi implementado utilizando Criptografia AES256 e banco de dados SQLite que dispensa configuração de servidor
-			A organização do código permite fácil expansão de diferentes mecanismos de criptografia e de armazenamento.
-			Diagrama de classes em anexo.
-		
-		Idioma:
-	
-			- Strings que são visiveis ao usuário, incluindo exceções implementadas para interação com a GUI estão em português.
-			- Strings relacionadas a exceções utilizadas em loggers, estão em inglês.
-		
-		Dependências:
-			
-			Banco de dados:	(Inclusa) 
-			- Existe a dependência de uma biblioteca para acesso ao SQLite.
-			
-			Segurança: (Necessita instalar)
-			
-				Para utilizar chaves de 256-bits é necessário instalar: "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files"
-			
-				As per the Oracle documentation:
-
-					Due to import control restrictions by the governments of a few countries, the jurisdiction policy files shipped with the JDK 5.0 from Sun Microsystems specify that "strong" but limited cryptography may be used.
-			
-				Para instalar, copie/substitua os arquivos:
-				"\policy_file\US_export_policy.jar" e "\policy_file\local_policy.jar" para:
-						${java.home}/jre/lib/security/
-						e/ou  ${java.home}/jdk/jre/lib/security/
-			
-		Segurança:
-		
-			O objetivo é fornecer um robusto mecanismo de criptografia para apenas o campo de senha e usuário no banco de dados.
-		
-			ATENÇÃO: Quando em funcionamento a GUI é vulnerável a ataque para obter senhas digitadas em campos.
-			Devido ao escopo do projeto, não foram utilizadas mecanismos de seguranças necessários para apagar
-			as senhas digitadas da memória RAM, e portanto estas permanecerão na memória até que esta seja liberada
-			por exemplo, pelo encerramento da aplicação.
-			
-			Utilizar por conta e risco.
-			
-			
-	--
+ - **Security: (required for 256-bit keys)**
+	 - As per Oracle's documentation:
+		 > Due to import control restrictions by the governments of a few countries, the jurisdiction policy files shipped with the JDK 5.0 from Sun Microsystems specify that "strong" but limited cryptography may be used.
+	 - To install policy files:
+		 - Copy/Replace the following files:
+			 - **"\policy_file\US_export_policy.jar"** and **"\policy_file\local_policy.jar"**
+		 - to:
+			 - **\${java.home}/jre/lib/security/** and/or  **\${java.home}/jdk/jre/lib/security/**
+ 
+ ## WARNING!
+The scope of the project is to provide an encryption mechanism for personal data (password and usernames) in the database.
+The GUI may be vulnerable to an attack and will offer no protection for the data while it is loaded in RAM memory.
+**Use at your own risk!**
