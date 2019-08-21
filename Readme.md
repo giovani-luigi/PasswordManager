@@ -1,7 +1,7 @@
 ## Overview:
-**Summary:** A password manager with graphical user interface, using AES 256 cryptography and SQLite storage. 
-**Author:** Giovani Luigi R. B. 
-**Programming language:** Java 1.8 (*Netbeans project*) 
+**Summary:** A password manager with graphical user interface, using AES 256 cryptography and SQLite storage.  \
+**Author:** Giovani Luigi R. B.  \
+**Programming language:** Java 1.8 (*Netbeans project*)  \ 
 
 ## Dependencies:
 
