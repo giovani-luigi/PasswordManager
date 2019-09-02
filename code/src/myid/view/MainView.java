@@ -147,43 +147,43 @@ public class MainView extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 5, 5), javax.swing.BorderFactory.createTitledBorder("PERFIL")));
         jPanel1.setLayout(null);
         jPanel1.add(textUser);
-        textUser.setBounds(160, 80, 110, 20);
+        textUser.setBounds(140, 90, 200, 20);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel1.setText("Usuário:");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(60, 80, 90, 20);
+        jLabel1.setBounds(40, 90, 90, 20);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel2.setText("Senha:");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(60, 120, 90, 20);
+        jLabel2.setBounds(40, 130, 90, 20);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel3.setText("URL:");
         jLabel3.setToolTipText("");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(60, 190, 90, 20);
+        jLabel3.setBounds(40, 200, 90, 20);
         jPanel1.add(textUrl);
-        textUrl.setBounds(160, 190, 110, 20);
+        textUrl.setBounds(140, 200, 200, 20);
 
         buttonOpenUrl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         buttonOpenUrl.setText("ACESSAR");
         buttonOpenUrl.setIconTextGap(10);
         buttonOpenUrl.setPreferredSize(new java.awt.Dimension(130, 23));
         jPanel1.add(buttonOpenUrl);
-        buttonOpenUrl.setBounds(160, 220, 110, 20);
+        buttonOpenUrl.setBounds(140, 230, 200, 23);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel4.setText("Apelido:");
+        jLabel4.setText("Alias:");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(60, 40, 90, 20);
+        jLabel4.setBounds(40, 50, 90, 20);
         jPanel1.add(textAlias);
-        textAlias.setBounds(160, 40, 110, 20);
+        textAlias.setBounds(140, 50, 200, 20);
 
         buttonReveal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         buttonReveal.setText("REVELAR");
@@ -194,10 +194,15 @@ public class MainView extends javax.swing.JFrame {
                 buttonRevealMouseClicked(evt);
             }
         });
+        buttonReveal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRevealActionPerformed(evt);
+            }
+        });
         jPanel1.add(buttonReveal);
-        buttonReveal.setBounds(160, 150, 110, 20);
+        buttonReveal.setBounds(140, 160, 200, 23);
         jPanel1.add(textPassword);
-        textPassword.setBounds(160, 120, 110, 20);
+        textPassword.setBounds(140, 130, 200, 20);
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -244,7 +249,13 @@ public class MainView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonRevealMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRevealMouseClicked
-        textPassword.setEchoChar((char)0);
+        char revealChar = (char)0;
+        char hiddenChar = '•';
+        if (textPassword.getEchoChar() != revealChar)
+            textPassword.setEchoChar(revealChar);
+        else
+            textPassword.setEchoChar(hiddenChar);
+        
     }//GEN-LAST:event_buttonRevealMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -274,6 +285,10 @@ public class MainView extends javax.swing.JFrame {
         controller.eraseCurrentProfile();
         updateAllView();
     }//GEN-LAST:event_buttonRemoveMouseClicked
+
+    private void buttonRevealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRevealActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonRevealActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

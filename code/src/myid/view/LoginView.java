@@ -1,5 +1,6 @@
 package myid.view;
 
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -76,6 +77,16 @@ public class LoginView extends javax.swing.JDialog {
         });
 
         textPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textPasswordActionPerformed(evt);
+            }
+        });
+        textPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textPasswordKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -146,6 +157,17 @@ public class LoginView extends javax.swing.JDialog {
         // TODO add your handling code here:
         onWindowOpened();
     }//GEN-LAST:event_formWindowOpened
+
+    private void textPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPasswordActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_textPasswordActionPerformed
+
+    private void textPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPasswordKeyPressed
+        // raise Login button event when ENTER is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+            onLoginButtonClick();        
+    }//GEN-LAST:event_textPasswordKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
