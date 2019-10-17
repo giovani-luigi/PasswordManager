@@ -8,6 +8,47 @@ import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+/**
+*  This class provides Hashing through Password-Based Key Derivation Function 2
+*  (a.k.a. PBKDF2)
+*
+*  ----------------------------------
+*  Why hashing, and what hash to use?
+*  ----------------------------------
+* 
+*  Storing the passwords as plain text is obviously a bad idea. If anyone steals
+*  the database, all data is vulnerable. A hashing algorithm is a one-way
+*  function that maps some data (e.g. a password) to a value. 
+*   Important properites of a hash function:
+*  - It is one-way, i.e. the original value cannot be obtained from the hash
+*    - This is important so an attacker would not be able to obtain the original
+*      password that was used to produce that hash.
+*  - If two hashes match means that the value used to produce them are equal,
+*    despite the fact that we don't know which value is that.
+*    - This is essential for login. We don't know the user password and it is
+*      not stored anywhere. But we still can check if the hash of his input 
+*      matches the stored hash (which means he entered the correct password)
+* 
+*  Hash algorithm:
+* 
+*   Password-Based Key Derivation Function 2 (PBKDF2) is a safe algorithm used 
+*   for password hashing. 
+* 
+*   Algorithms like MD5 and SHA1 have been proven to be vulnerable to collision 
+*   attacks and can be rainbow tabled easily (when they see if you hash is the 
+*   same in their database of common passwords). 
+* 
+*  ----------------------------------
+*  What is a salt and why to use it?
+*  ----------------------------------
+*
+*  A salt is usually a random string that you add at the end of all your
+*  passwords when you hash them. Using a salt means if someone gets your 
+*  database, they can not check the hashes for common passwords. Checking 
+*  the database is called using a rainbow table. 
+*  You should always use a salt when hashing!
+* 
+*/
 public class Hashing {
     
     private static final int ITERATIONS = 65536;
